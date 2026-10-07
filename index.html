@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Agent — IBM Granite AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">◈</div>
+    <div class="brand-text">
+      <span class="brand-name">SocialAgent</span>
+      <span class="brand-sub">Powered by IBM Granite</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-view="dashboard">
+      <span class="nav-icon">▦</span><span>Dashboard</span>
+    </button>
+    <button class="nav-item" data-view="analytics">
+      <span class="nav-icon">◉</span><span>Analytics</span>
+    </button>
+    <button class="nav-item" data-view="ai-insights">
+      <span class="nav-icon">✦</span><span>AI Insights</span>
+    </button>
+    <button class="nav-item" data-view="content">
+      <span class="nav-icon">✎</span><span>Content Studio</span>
+    </button>
+    <button class="nav-item" data-view="competitors">
+      <span class="nav-icon">⊞</span><span>Competitors</span>
+    </button>
+    <button class="nav-item" data-view="campaigns">
+      <span class="nav-icon">◆</span><span>Campaigns</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="ibm-badge">
+      <span class="ibm-dot"></span>
+      <span>IBM Granite 3.3</span>
+    </div>
+    <div class="ibm-badge mt-4">
+      <span class="ibm-dot cloud"></span>
+      <span>IBM Cloud Connected</span>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<main class="main-content">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" id="hamburger">☰</button>
+      <div class="topbar-title" id="topbar-title">Dashboard Overview</div>
+    </div>
+    <div class="topbar-right">
+      <div class="platform-pills">
+        <button class="pill active" data-platform="all">All</button>
+        <button class="pill" data-platform="x">𝕏</button>
+        <button class="pill" data-platform="linkedin">in</button>
+        <button class="pill" data-platform="instagram">📷</button>
+        <button class="pill" data-platform="facebook">f</button>
+      </div>
+      <button class="btn-refresh" id="btn-refresh" title="Refresh data">↻</button>
+      <button class="btn-chat-toggle" id="btn-chat-toggle" title="AI Chat">✦ AI Chat</button>
+    </div>
+  </header>
+
+  <!-- VIEWS CONTAINER -->
+  <div class="views-wrapper">
+
+    <!-- ── VIEW: DASHBOARD ── -->
+    <section class="view active" id="view-dashboard">
+      <div class="kpi-grid" id="kpi-grid"></div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <h3>Engagement Over Time</h3>
+            <span class="badge-ai">AI Trend Active</span>
+          </div>
+          <canvas id="chart-engagement" height="220"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Platform Breakdown</h3>
+          </div>
+          <canvas id="chart-platform" height="220"></canvas>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <h3>Sentiment Overview</h3>
+            <span class="badge-ai">Granite NLP</span>
+          </div>
+          <canvas id="chart-sentiment" height="200"></canvas>
+          <div class="sentiment-legend" id="sentiment-legend"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Best Posting Times</h3>
+            <span class="badge-ai">AI Optimized</span>
+          </div>
+          <div class="posting-heatmap" id="posting-heatmap"></div>
+        </div>
+      </div>
+
+      <div class="card full-width">
+        <div class="card-header">
+          <h3>Top Performing Posts</h3>
+        </div>
+        <div class="posts-table" id="posts-table"></div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: ANALYTICS ── -->
+    <section class="view" id="view-analytics">
+      <div class="kpi-grid" id="analytics-kpi"></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header"><h3>Reach vs Impressions</h3></div>
+          <canvas id="chart-reach" height="220"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Follower Growth</h3></div>
+          <canvas id="chart-followers" height="220"></canvas>
+        </div>
+      </div>
+      <div class="card full-width">
+        <div class="card-header">
+          <h3>Hashtag Performance</h3>
+          <span class="badge-ai">AI Recommended</span>
+        </div>
+        <div class="hashtag-grid" id="hashtag-grid"></div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: AI INSIGHTS ── -->
+    <section class="view" id="view-ai-insights">
+      <div class="insights-hero">
+        <div class="granite-logo">◈</div>
+        <h2>IBM Granite AI Insights</h2>
+        <p>Real-time analysis powered by IBM Granite 3.3 language model</p>
+      </div>
+      <div class="insights-grid" id="insights-grid"></div>
+      <div class="two-col mt-24">
+        <div class="card">
+          <div class="card-header">
+            <h3>Trend Predictions</h3>
+            <span class="badge-ai">7-Day Forecast</span>
+          </div>
+          <canvas id="chart-predictions" height="220"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Topic Clustering</h3>
+            <span class="badge-ai">NLP Clustering</span>
+          </div>
+          <div class="topic-bubbles" id="topic-bubbles"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: CONTENT STUDIO ── -->
+    <section class="view" id="view-content">
+      <div class="content-studio">
+        <div class="studio-left">
+          <div class="card">
+            <div class="card-header">
+              <h3>✦ AI Caption Generator</h3>
+              <span class="badge-ai">Granite LLM</span>
+            </div>
+            <div class="gen-form">
+              <label>Topic / Product</label>
+              <input type="text" id="caption-topic" placeholder="e.g. Product launch, summer sale..." />
+              <label>Tone</label>
+              <select id="caption-tone">
+                <option>Professional</option>
+                <option>Casual</option>
+                <option>Inspiring</option>
+                <option>Humorous</option>
+                <option>Urgent</option>
+              </select>
+              <label>Platform</label>
+              <select id="caption-platform">
+                <option>Instagram</option>
+                <option>LinkedIn</option>
+                <option>X (Twitter)</option>
+                <option>Facebook</option>
+              </select>
+              <button class="btn-primary" id="btn-generate-caption">✦ Generate with Granite</button>
+            </div>
+            <div class="generated-output" id="caption-output" style="display:none"></div>
+          </div>
+
+          <div class="card mt-16">
+            <div class="card-header">
+              <h3># Hashtag Recommender</h3>
+              <span class="badge-ai">AI Ranked</span>
+            </div>
+            <div class="gen-form">
+              <input type="text" id="hashtag-input" placeholder="Describe your post..." />
+              <button class="btn-primary" id="btn-gen-hashtags">Get Hashtags</button>
+            </div>
+            <div class="hashtag-output" id="hashtag-output"></div>
+          </div>
+        </div>
+
+        <div class="studio-right">
+          <div class="card">
+            <div class="card-header">
+              <h3>Content Calendar</h3>
+            </div>
+            <div class="calendar-grid" id="content-calendar"></div>
+          </div>
+          <div class="card mt-16">
+            <div class="card-header">
+              <h3>Posting Schedule Optimizer</h3>
+              <span class="badge-ai">AI Optimized</span>
+            </div>
+            <div class="schedule-table" id="schedule-table"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: COMPETITORS ── -->
+    <section class="view" id="view-competitors">
+      <div class="card">
+        <div class="card-header">
+          <h3>Competitor Benchmarking</h3>
+          <span class="badge-ai">AI Analysis</span>
+        </div>
+        <div class="comp-table" id="comp-table"></div>
+      </div>
+      <div class="two-col mt-24">
+        <div class="card">
+          <div class="card-header"><h3>Share of Voice</h3></div>
+          <canvas id="chart-sov" height="260"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>Competitor Sentiment</h3>
+            <span class="badge-ai">Granite NLP</span>
+          </div>
+          <canvas id="chart-comp-sentiment" height="260"></canvas>
+        </div>
+      </div>
+      <div class="card full-width mt-24">
+        <div class="card-header">
+          <h3>AI Competitive Intelligence</h3>
+          <span class="badge-ai">Granite Insights</span>
+        </div>
+        <div class="intelligence-grid" id="intelligence-grid"></div>
+      </div>
+    </section>
+
+    <!-- ── VIEW: CAMPAIGNS ── -->
+    <section class="view" id="view-campaigns">
+      <div class="card">
+        <div class="card-header">
+          <h3>✦ AI Campaign Idea Generator</h3>
+          <span class="badge-ai">Granite Creative</span>
+        </div>
+        <div class="campaign-gen">
+          <div class="gen-form row">
+            <div>
+              <label>Industry / Niche</label>
+              <input type="text" id="campaign-industry" placeholder="e.g. Tech, Fashion, Food..." />
+            </div>
+            <div>
+              <label>Goal</label>
+              <select id="campaign-goal">
+                <option>Brand Awareness</option>
+                <option>Lead Generation</option>
+                <option>Sales Conversion</option>
+                <option>Community Building</option>
+                <option>Product Launch</option>
+              </select>
+            </div>
+            <div>
+              <label>Budget</label>
+              <select id="campaign-budget">
+                <option>Low ($0–$500)</option>
+                <option>Medium ($500–$5K)</option>
+                <option>High ($5K+)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-primary mt-12" id="btn-gen-campaign">✦ Generate Campaign Ideas</button>
+        </div>
+        <div class="campaign-output" id="campaign-output"></div>
+      </div>
+
+      <div class="card mt-24">
+        <div class="card-header">
+          <h3>Active Campaigns</h3>
+        </div>
+        <div class="campaigns-list" id="campaigns-list"></div>
+      </div>
+    </section>
+
+  </div><!-- /views-wrapper -->
+</main>
+
+<!-- ═══════════════════════ AI CHAT PANEL ═══════════════════════ -->
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-title">
+      <span class="granite-dot">◈</span>
+      <span>Granite AI Assistant</span>
+    </div>
+    <button class="chat-close" id="chat-close">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-suggestions" id="chat-suggestions"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Ask Granite AI anything…" />
+    <button class="chat-send" id="chat-send">▶</button>
+  </div>
+</div>
+<div class="chat-overlay" id="chat-overlay"></div>
+
+<!-- ═══════════════════════ TOAST ═══════════════════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- SCRIPTS -->
+<script src="data/mock-data.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/ai-engine.js"></script>
+<script src="js/content-studio.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
